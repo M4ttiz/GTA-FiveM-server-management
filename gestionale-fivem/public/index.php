@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             width: 100%;
             padding: 10px;
             margin-top: 20px;
-            background: #238636;
+            background: #0969da;
             border: 1px solid #30363d;
             color: #fff;
             font-weight: 600;
@@ -93,8 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         
         .login-button:hover {
-            background: #2ea043;
-            box-shadow: 0 3px 8px rgba(36, 134, 54, 0.2);
+            background: #1f6feb;
+            box-shadow: 0 3px 8px rgba(9, 105, 218, 0.3);
             transform: translateY(-1px);
         }
         
