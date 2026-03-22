@@ -1,8 +1,40 @@
 {
+  "name": "gestionale-fivem",
+  "version": "1.0.0",
+  "description": "Professional web management system for FiveM roleplay servers",
+  "author": "M4ttiz & Contributors",
+  "license": "MIT",
+  "homepage": "https://github.com/M4ttiz/GTA-FiveM-server-management",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/M4ttiz/GTA-FiveM-server-management.git"
+  },
+  "keywords": [
+    "fivem",
+    "gta",
+    "roleplay",
+    "management",
+    "admin",
+    "panel",
+    "php",
+    "mysql"
+  ],
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "body-parser": "^2.2.2",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "mysql2": "^3.20.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0",
+    "php": ">=8.0.0",
+    "mysql": ">=5.7.0"
   }
 }
