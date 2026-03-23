@@ -1,6 +1,6 @@
 <?php
-include('db.php');
 session_start();
+include('db.php');
 
 $error = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,8 +12,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         $_SESSION['user'] = $result->fetch_assoc();
+        
+        // LOG AUDIT - Login riuscito
+        $username = $user;
+        log_login($username, "success");
+        
         header("Location: dashboard.php");
+        exit();
     } else {
+        // LOG AUDIT - Login fallito
+        log_login($user, "failed");
         $error = "Credenziali errate!";
     }
 }
