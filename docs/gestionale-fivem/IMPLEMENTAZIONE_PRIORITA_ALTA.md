@@ -33,7 +33,7 @@ Dashboard admin per visualizzare/analizzare i log di audit.
 - Filtri: username, azione
 - Export: CSV
 
-### 4. **AUDIT_LOGGING_GUIDE.md** (NEW)
+### 4. **AUDIT_LOGGING_GUIDE.md** (in `docs/gestionale-fivem/`)
 Guida completa con snippet di codice per integrare il logging in tutti i file CRUD.
 
 ---
@@ -135,7 +135,7 @@ CREATE TABLE audit_logs (
 
 ### Step 4: Integra nelle Operazioni CRUD
 ```
-Vedi AUDIT_LOGGING_GUIDE.md per snippet di codice
+Vedi `docs/gestionale-fivem/AUDIT_LOGGING_GUIDE.md` per snippet di codice
 da aggiungere in:
 - weapons.php
 - aziende.php
@@ -235,7 +235,7 @@ Password ATTUALE: Admin@1234
 ## 📞 Supporto
 
 Per problemi o domande, consulta:
-1. **AUDIT_LOGGING_GUIDE.md** - Guida di implementazione dettagliata
+1. **AUDIT_LOGGING_GUIDE.md** (`docs/gestionale-fivem/`) - Guida di implementazione dettagliata
 2. **audit_logs.php** - Dashboard di visualizzazione log
 3. **functions.php** - Header e documentazione funzioni
 

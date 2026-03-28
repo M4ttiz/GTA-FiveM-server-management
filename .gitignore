@@ -29,6 +29,8 @@ composer.lock
 *.sql
 !database.sql
 !schema.sql
+!gestionale-fivem/database.sql
+!gestionale-fivem/sql/migration_dettagli.sql
 
 # Logs
 logs/

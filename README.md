@@ -109,7 +109,8 @@
 #### 1. Clone Repository
 ```bash
 git clone https://github.com/M4ttiz/GTA-FiveM-server-management.git
-cd gestionale-fivem
+cd GTA-FiveM-server-management
+# L'app PHP è nella cartella gestionale-fivem/
 ```
 
 #### 2. Setup Database
@@ -119,7 +120,7 @@ cd gestionale-fivem
 
 # Importa schema
 1. Create DB: "fivem_gestionale"
-2. Esegui: gestione-fivem/database.sql
+2. Esegui: gestionale-fivem/database.sql
 3. Verifica tabelle create
 ```
 
@@ -171,24 +172,31 @@ Password: admin
 ## 🏗️ Struttura Progetto
 
 ```
-gestionale-fivem/
-├── public/                          # Files serviti al client
-│   ├── index.php                   # Entry point
-│   ├── dashboard.php               # Admin dashboard
-│   ├── users.php                   # User management
-│   ├── weapons.php                 # Ballistics system
-│   ├── reports.php                 # Investigations
-│   ├── aziende.php                 # Companies
-│   ├── federal.php                 # Federal service
-│   ├── internal.php                # Internal affairs
-│   ├── logout.php                  # Logout handler
-│   ├── app.js                      # Frontend logic
-│   ├── style.css                   # Styling
-│   └── db.php                      # Database class
-├── database.sql                     # Schema database
-├── server.js                        # Node.js entry (optional)
-├── package.json                     # Dependencies
-└── README.md                        # This file
+gestionale_fivem_master/             # root repository
+├── docs/                            # Documentazione (guide, API, integrazione FiveM)
+│   └── gestionale-fivem/            # Note tecniche modulo (sync, audit, roadmap)
+├── gestionale-fivem/                # Applicazione web
+│   ├── public/                      # Document root (Apache / htdocs)
+│   │   ├── index.php                # Entry point
+│   │   ├── dashboard.php            # Admin dashboard
+│   │   ├── users.php                # User management
+│   │   ├── weapons.php              # Ballistics
+│   │   ├── reports.php              # Investigations
+│   │   ├── aziende.php              # Companies
+│   │   ├── federal.php              # Federal service
+│   │   ├── internal.php             # Internal affairs
+│   │   ├── api_sync_weapons.php     # API sync armi (FiveM)
+│   │   ├── app.js                   # Frontend logic
+│   │   ├── style.css
+│   │   └── db.php                   # Connessione DB
+│   ├── resources/fivem/             # Script Lua da copiare nel server FiveM
+│   ├── sql/                         # Migrazioni SQL opzionali
+│   ├── database.sql                 # Schema database principale
+│   ├── server.js                    # Node (opzionale)
+│   ├── package.json
+│   └── web.config                   # IIS (opzionale)
+├── README.md
+└── ...
 ```
 
 ---

@@ -94,7 +94,7 @@
 ```bash
 # 1. Clone repository
 git clone https://github.com/M4ttiz/GTA-FiveM-server-management.git
-cd gestionale-fivem
+cd GTA-FiveM-server-management
 
 # 2. Setup database
 # Open PhpMyAdmin: http://localhost/phpmyadmin
@@ -136,24 +136,17 @@ For detailed setup, see [Quick Start Guide](docs/QUICKSTART.md)
 ## 🏗️ Project Structure
 
 ```
-gestionale-fivem/
-├── public/                 # Web-served files
-│   ├── index.php          # Login entry point
-│   ├── dashboard.php      # Admin dashboard
-│   ├── weapons.php        # Ballistics system
-│   ├── reports.php        # Investigation reports
-│   ├── users.php          # User management
-│   ├── aziende.php        # Company management
-│   ├── federal.php        # Federal service
-│   ├── internal.php       # Internal affairs
-│   ├── app.js             # Frontend logic
-│   ├── style.css          # Styling
-│   └── db.php             # Database class
-├── database.sql           # Database schema
-├── docs/                  # Complete documentation
-├── package.json           # Dependencies
-├── README.md              # This file
-└── [Configuration files]
+<repository-root>/
+├── docs/                  # Documentazione (include docs/gestionale-fivem/ per note tecniche)
+├── gestionale-fivem/
+│   ├── public/            # Document root Apache
+│   ├── resources/fivem/   # Script Lua per il server FiveM
+│   ├── sql/               # Migrazioni SQL opzionali
+│   ├── database.sql       # Schema principale
+│   ├── package.json
+│   └── server.js
+├── README.md
+└── ...
 ```
 
 ---

@@ -57,30 +57,26 @@ gestionale-fivem/
 │   └── db.php                      # Database class
 │
 ├── database.sql                     # Initial schema
+├── sql/                             # Migrazioni SQL opzionali
+│   └── migration_dettagli.sql
+├── resources/fivem/                 # Script Lua da copiare sul server FiveM
+│   └── fivem_weapon_sync.lua
 ├── server.js                        # Node.js (optional)
 ├── package.json                     # Dependencies
-├── README.md                        # Main documentation
-│
-├── [Root Config]
-├── .gitignore                       # Git exclude rules
-├── .editorconfig                    # Editor settings
-├── LICENSE                          # MIT License
-├── CODE_OF_CONDUCT.md
-├── CONTRIBUTING.md
-├── SECURITY.md
-├── CHANGELOG.md
-│
-└── docs/                            # Documentation files
-    ├── README.md
-    ├── QUICKSTART.md
-    ├── CONFIGURATION.md
-    ├── DATABASE.md
-    ├── ARCHITECTURE.md
-    ├── API.md
-    ├── USER_GUIDE.md
-    ├── TESTING.md
-    ├── TROUBLESHOOTING.md
-    └── images/
+└── README.md                        # Documentazione cartella app
+```
+
+Repository root (accanto a `gestionale-fivem/`):
+
+```
+./
+├── docs/                            # Documentazione progetto
+│   ├── gestionale-fivem/            # Note tecniche (sync FiveM, audit)
+│   └── ...
+├── .gitignore
+├── LICENSE
+├── README.md
+└── ...
 ```
 
 ---

@@ -60,7 +60,7 @@ URL: http://localhost/gestionale_fivem_master/gestionale-fivem/public/migrate_we
 
 ---
 
-### 4. **INTEGRAZIONE_FIVEM.md** (NEW)
+### 4. **INTEGRAZIONE_FIVEM.md** (in `docs/gestionale-fivem/`)
 **Documentazione completa** con:
 - Setup iniziale step-by-step
 - Configurazione API
@@ -245,8 +245,8 @@ http://localhost/gestionale_fivem_master/gestionale-fivem/public/weapons.php
 
 Se devi fornire al proprietario del server, includi:
 
-1. **fivem_weapon_sync.lua** - Script pronto all'uso
-2. **INTEGRAZIONE_FIVEM.md** - Guida completa
+1. **fivem_weapon_sync.lua** (`gestionale-fivem/resources/fivem/`) - Script pronto all'uso
+2. **INTEGRAZIONE_FIVEM.md** (`docs/gestionale-fivem/`) - Guida completa
 3. **API_KEY** (comunicare privatamente)
 4. **URL Endpoint:**
    ```

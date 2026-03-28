@@ -44,7 +44,7 @@ Con una chiave sicura a tua scelta (es: `mk3Xj9pQwLm2nR5sT`).
 **IMPORTANTE:** Deve essere la stessa nel file Lua!
 
 ### Step 3: Configura lo Script Lua
-**File:** `fivem_weapon_sync.lua`
+**File nel repo:** `gestionale-fivem/resources/fivem/fivem_weapon_sync.lua` (copialo nel resource FiveM)
 
 Cambia questi parametri:
 ```lua

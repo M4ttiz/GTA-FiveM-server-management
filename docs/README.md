@@ -46,6 +46,11 @@ docs/
 ├── DATABASE.md            Schema e relazioni
 ├── API.md                 Endpoints HTTP
 ├── TESTING.md             Test e QA
+├── gestionale-fivem/      # Note modulo (sync FiveM, audit, roadmap interna)
+│   ├── INTEGRAZIONE_FIVEM.md
+│   ├── FIVEM_SYNC_SUMMARY.md
+│   ├── AUDIT_LOGGING_GUIDE.md
+│   └── IMPLEMENTAZIONE_PRIORITA_ALTA.md
 └── images/                Screenshots per docs
 ```
 

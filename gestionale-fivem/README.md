@@ -89,23 +89,28 @@ Il **FiveM Management System** è una piattaforma web centralizzata per la gesti
 
 ```
 gestionale-fivem/
-├── databse.sql              # Schema e dati iniziali
-├── package.json             # Metadati progetto
-├── README.md                # Questa documentazione
-│
-└── public/
-    ├── index.php            # Login
-    ├── dashboard.php        # Hub principale
-    ├── style.css            # Stylesheet globale
-    ├── db.php               # Connessione database
-    ├── logout.php           # Termina sessione
-    │
-    ├── weapons.php          # Archivio Balistico
-    ├── reports.php          # Rapporti Investigativi
-    ├── aziende.php          # Censimento Attività
-    ├── federal.php          # Federal Service
-    ├── internal.php         # Internal Affairs
-    └── users.php            # Gestione Utenti (ADMIN)
+├── database.sql             # Schema e dati iniziali
+├── sql/
+│   └── migration_dettagli.sql   # Migrazione opzionale (campi extra)
+├── resources/fivem/
+│   └── fivem_weapon_sync.lua    # Copia nel resource FiveM (weapon_sync)
+├── package.json
+├── server.js
+├── web.config               # Opzionale (IIS)
+├── README.md
+└── public/                  # Document root
+    ├── index.php
+    ├── dashboard.php
+    ├── style.css
+    ├── db.php
+    ├── logout.php
+    ├── api_sync_weapons.php
+    ├── weapons.php
+    ├── reports.php
+    ├── aziende.php
+    ├── federal.php
+    ├── internal.php
+    └── users.php
 ```
 
 ---

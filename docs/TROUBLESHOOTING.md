@@ -159,7 +159,7 @@ SELECT * FROM weapons WHERE seriale = 'DUPLICATED-SERIAL';
 ```bash
 # Verifica struttura cartelle
 ls -la C:\xampp\htdocs\gestionale-fivem\
-# Dovrebbe contenere: public/, database.sql, package.json, README.md
+# Dovrebbe contenere: public/, database.sql, sql/, resources/, package.json, README.md
 ```
 
 ### ❌ "Permission Denied"
