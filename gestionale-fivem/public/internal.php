@@ -12,10 +12,14 @@ if (!in_array($ruolo, ['admin', 'iaa'])) { header("Location: dashboard.php"); ex
 if (isset($_POST['save_internal'])) {
     $titolo = $conn->real_escape_string($_POST['titolo']);
     $desc = $conn->real_escape_string($_POST['descrizione']);
+    $tipo_ind = $conn->real_escape_string($_POST['tipo_indagine'] ?? 'interno');
+    $priorita = $conn->real_escape_string($_POST['priorita'] ?? 'media');
+    $location = $conn->real_escape_string($_POST['location_crimine'] ?? '');
+    $note = $conn->real_escape_string($_POST['note_aggiuntive'] ?? '');
     $autore = $user['username'];
     
-    $sql = "INSERT INTO reports (titolo, descrizione, creato_da, ruolo_creatore, categoria, stato) 
-            VALUES ('$titolo', '$desc', '$autore', '$ruolo', 'internal', 'aperto')";
+    $sql = "INSERT INTO reports (titolo, descrizione, creato_da, ruolo_creatore, categoria, tipo_indagine, priorita, location_crimine, stato) 
+            VALUES ('$titolo', '$desc', '$autore', '$ruolo', 'internal', '$tipo_ind', '$priorita', '$location', 'aperto')";
     
     if($conn->query($sql)) {
         header("Location: internal.php");
@@ -122,11 +126,35 @@ if (isset($_POST['save_internal'])) {
     </div>
 
     <div class="iaa-card">
-        <h3>Nuovo Rapporto Investigativo</h3>
+        <h3>Nuovo Rapporto Investigativo Interno</h3>
         <form method="POST">
             <div style="margin-bottom: 12px;">
-                <label>Soggetto / Matricola</label>
+                <label>Soggetto / Matricola Agente</label>
                 <input type="text" name="titolo" placeholder="es. Agent Johnson - Corruzione" required>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label>Tipo Indagine Interna</label>
+                <select name="tipo_indagine">
+                    <option value="interno">Indagine Interna Standard</option>
+                    <option value="corruzione">Corruzione</option>
+                    <option value="abuso_autorità">Abuso di Autorità</option>
+                    <option value="condotta_impropria">Condotta Impropria</option>
+                    <option value="furto_interno">Furto Interno</option>
+                    <option value="otro">Altro</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label>Priorità</label>
+                <select name="priorita">
+                    <option value="bassa">Bassa</option>
+                    <option value="media" selected>Media</option>
+                    <option value="alta">Alta</option>
+                    <option value="critica">Critica</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label>Reparto / Locazione</label>
+                <input type="text" name="location_crimine" placeholder="es. Divisione Nord">
             </div>
             <div style="margin-bottom: 12px;">
                 <label>Descrizione dettagliata</label>
@@ -143,16 +171,36 @@ if (isset($_POST['save_internal'])) {
             while($row = $res->fetch_assoc()) {
                 echo '<div class="doc-item">
                         <div class="doc-header" onclick="toggle('.$row['id'].')">
-                            <span>RAPPORTO #'.$row['id'].' - '.htmlspecialchars($row['titolo']).'</span>
-                            <span>'.strtoupper($row['stato']).' ▼</span>
-                        </div>
-                        <div id="doc-'.$row['id'].'" class="doc-body">
-                            '.htmlspecialchars($row['descrizione']).'
-                            <div style="margin-top:12px; font-size:0.9em; border-top:1px solid #30363d; padding-top:8px;">
-                                Agente IAA: '.strtoupper($row['creato_da']).'
+                            <div>
+                                <span style="color:#f0883e; font-weight:600;">RAPPORTO #'.$row['id'].' - '.htmlspecialchars($row['titolo']).'</span><br>
+                                <small style="color:#8b949e; margin-top:4px; display:block;">Tipo: '.htmlspecialchars($row['tipo_indagine'] ?? 'interno').'</small>
+                            </div>
+                            <div style="text-align:right;">
+                                <span style="display:inline-block; padding:4px 10px; border-radius:12px; font-weight:600; font-size:0.85em; background:'.
+                                    (['bassa' => '#58a6ff', 'media' => '#f0883e', 'alta' => '#f85149', 'critica' => '#da3633'][$row['priorita'] ?? 'media'] ?? '#f0883e').'; color:#fff;">
+                                    '.strtoupper($row['priorita'] ?? 'MEDIA').'
+                                </span><br>
+                                <small style="color:#8b949e; margin-top:4px; display:block;">'.strtoupper($row['stato']).' ▼</small>
                             </div>
                         </div>
-                      </div>';
+                        <div id="doc-'.$row['id'].'" class="doc-body">
+                            <div style="margin-bottom:12px;">
+                                <strong style="color:#f0883e;">DATI INVESTIGAZIONE</strong>
+                            </div>';
+                
+                if($row['location_crimine']) {
+                    echo '<div style="margin-bottom:8px;"><small style="color:#8b949e;">📍 Reparto/Locazione:</small> <strong>'.htmlspecialchars($row['location_crimine']).'</strong></div>';
+                }
+                
+                echo '<div style="margin:12px 0; padding:8px 0; border-top:1px solid #30363d; border-bottom:1px solid #30363d;">
+                        <strong style="color:#c9d1d9;">RELAZIONE DETTAGLIATA:</strong><br><br>
+                        '.nl2br(htmlspecialchars($row['descrizione'])).'
+                      </div>
+                      <div style="margin-top:12px; font-size:0.85em; color:#6e7681;">
+                        📅 Data: '.date('d/m/Y H:i', strtotime($row['data_creazione'] ?? $row['id'])).' | Agente IAA: '.strtoupper($row['creato_da']).'
+                      </div>
+                    </div>
+                  </div>';
             }
         } else {
             echo "<div style=\"text-align:center; padding:40px; background:#161b22; border:1px solid #30363d; border-radius:8px; color:#8b949e;\">Nessun rapporto trovato nel database</div>";

@@ -45,7 +45,7 @@ $ruolo = $user['ruolo'];
         </div>
         <?php endif; ?>
 
-        <?php if(in_array($ruolo, ['admin', 'marshall'])): ?>
+        <?php if(in_array($ruolo, ['admin', 'marshall', 'fib'])): ?>
         <div class="card" onclick="location.href='federal.php'" style="cursor:pointer;">
             <h3>⚖️ Federal Service</h3>
             <p>Fascicoli indagini federali</p>

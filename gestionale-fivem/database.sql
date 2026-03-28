@@ -5,10 +5,7 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(50) NOT NULL,
-    ruolo VARCHAR(50) NOT NULL,
-    nome_completo VARCHAR(100),
-    matricola VARCHAR(20),
-    data_iscrizione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ruolo VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE weapons (
@@ -19,30 +16,16 @@ CREATE TABLE weapons (
     modello VARCHAR(50),
     tipo_utente INT,
     data_ora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    data_registrazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    registrato_da VARCHAR(50),
-    data_ultima_modifica TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    revocata TINYINT(1) DEFAULT 0,
-    stato VARCHAR(20) DEFAULT 'attivo'
-);numero_caso VARCHAR(20) UNIQUE,
+    revocata TINYINT(1) DEFAULT 0
+);
+
+CREATE TABLE reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     titolo VARCHAR(100),
     descrizione TEXT,
     stato VARCHAR(20) DEFAULT 'aperto',
-    priorita VARCHAR(20) DEFAULT 'media',
-    tag_categoria VARCHAR(50),
     creato_da VARCHAR(50),
     ruolo_creatore VARCHAR(50),
-    assegnato_a VARCHAR(50),
-    data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    data_ultimo_aggiornamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    tipo VARCHAR(50),
-    categoria VARCHAR(50)
-    stato VARCHAR(20) DEFAULT 'aperto',
-    creato_da VARCHAR(50),
-    ruolo_creatore VARCHA,
-    data_registrazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    registrato_da VARCHAR(50),
-    data_ultima_modifica TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMPR(50),
     tipo VARCHAR(50) -- 'investigativo', 'federale', 'interno'
 );
 
@@ -69,6 +52,7 @@ INSERT INTO users (username, password, ruolo) VALUES
 ('lssd1', 'lssd1', 'lssd'),
 ('procura1', 'procura1', 'procura'),
 ('marshall1', 'marshall1', 'marshall'),
+('fib1', 'fib1', 'fib'),
 ('iaa1', 'iaa1', 'iaa'),
 ('alto_lspd', 'alto_lspd', 'alto_comando_lspd');
 

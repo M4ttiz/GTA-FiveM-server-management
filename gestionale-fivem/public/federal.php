@@ -6,8 +6,8 @@ if (!isset($_SESSION['user'])) { header("Location: index.php"); exit(); }
 $user = $_SESSION['user'];
 $ruolo = $user['ruolo'];
 
-// 🛡️ SECURITY CHECK: Solo Marshall e Admin
-if (!in_array($ruolo, ['admin', 'marshall'])) {
+// 🛡️ SECURITY CHECK: Solo Marshall, FIB e Admin
+if (!in_array($ruolo, ['admin', 'marshall', 'fib'])) {
     header("Location: dashboard.php");
     exit();
 }
@@ -16,10 +16,16 @@ if (!in_array($ruolo, ['admin', 'marshall'])) {
 if (isset($_POST['save_federal'])) {
     $titolo = $conn->real_escape_string($_POST['titolo']);
     $desc = $conn->real_escape_string($_POST['descrizione']);
+    $tipo_ind = $conn->real_escape_string($_POST['tipo_indagine'] ?? 'federale');
+    $priorita = $conn->real_escape_string($_POST['priorita'] ?? 'alta');
+    $vittime = intval($_POST['numero_vittime'] ?? 0);
+    $importo = floatval($_POST['importo_stimato'] ?? 0);
+    $location = $conn->real_escape_string($_POST['location_crimine'] ?? '');
+    $agenti = $conn->real_escape_string($_POST['agenti_coinvolti'] ?? '');
     $autore = $user['username'];
     
-    $sql = "INSERT INTO reports (titolo, descrizione, creato_da, ruolo_creatore, categoria, stato) 
-            VALUES ('$titolo', '$desc', '$autore', '$ruolo', 'federal', 'aperto')";
+    $sql = "INSERT INTO reports (titolo, descrizione, creato_da, ruolo_creatore, categoria, tipo_indagine, priorita, numero_vittime, importo_stimato, location_crimine, agenti_coinvolti, stato) 
+            VALUES ('$titolo', '$desc', '$autore', '$ruolo', 'federal', '$tipo_ind', '$priorita', $vittime, $importo, '$location', '$agenti', 'aperto')";
     
     if($conn->query($sql)) {
         header("Location: federal.php");
@@ -135,6 +141,43 @@ if (isset($_POST['save_federal'])) {
                 <input type="text" name="titolo" placeholder="es. OPERAZIONE COYOTE" required>
             </div>
             <div style="margin-bottom: 12px;">
+                <label>Tipo Indagine Federale</label>
+                <select name="tipo_indagine">
+                    <option value="federale">Federale Standard</option>
+                    <option value="crimini_transfrontalieri">Crimini Transfrontalieri</option>
+                    <option value="terrorismo">Terrorismo</option>
+                    <option value="riciclaggio">Riciclaggio</option>
+                    <option value="corruzione">Corruzione</option>
+                    <option value="traffico">Traffico Persone/Droga</option>
+                    <option value="altro">Altro</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label>Priorità Indagine</label>
+                <select name="priorita">
+                    <option value="bassa">Bassa</option>
+                    <option value="media">Media</option>
+                    <option value="alta" selected>Alta</option>
+                    <option value="critica">Critica</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label>Numero Vittime / Soggetti Coinvolti</label>
+                <input type="number" name="numero_vittime" min="0" placeholder="0">
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label>Importo Stimato (Criminale/Perdite)</label>
+                <input type="number" name="importo_stimato" min="0" step="0.01" placeholder="0.00">
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label>Luogo Principale</label>
+                <input type="text" name="location_crimine" placeholder="es. Distretto Nord">
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label>Agenti Federali Assegnati</label>
+                <input type="text" name="agenti_coinvolti" placeholder="es. Spec. Agent Torres, Ag. Martinez">
+            </div>
+            <div style="margin-bottom: 12px;">
                 <label>Dettagli dell'indagine federale</label>
                 <textarea name="descrizione" rows="5" placeholder="Inserire i dettagli dell'indagine..." required style="resize: vertical;"></textarea>
             </div>
@@ -149,16 +192,47 @@ if (isset($_POST['save_federal'])) {
             while($row = $res->fetch_assoc()) {
                 echo '<div class="case-item">
                         <div class="case-head" onclick="toggleCase('.$row['id'].')">
-                            <span>CASO #'.$row['id'].' - '.htmlspecialchars($row['titolo']).'</span>
-                            <span>DETTAGLI ▼</span>
-                        </div>
-                        <div id="case-'.$row['id'].'" class="case-body">
-                            '.htmlspecialchars($row['descrizione']).'
-                            <div style="margin-top:12px; font-size:0.9em; border-top:1px solid #30363d; padding-top:8px;">
-                                Agente Federale: '.strtoupper($row['creato_da']).'
+                            <div>
+                                <span style="color:#f0883e; font-weight:600;">CASO #'.$row['id'].' - '.htmlspecialchars($row['titolo']).'</span><br>
+                                <small style="color:#8b949e; margin-top:4px; display:block;">Tipo: '.htmlspecialchars($row['tipo_indagine'] ?? 'federale').'</small>
+                            </div>
+                            <div style="text-align:right;">
+                                <span style="display:inline-block; padding:4px 10px; border-radius:12px; font-weight:600; font-size:0.85em; background:'.
+                                    (['bassa' => '#58a6ff', 'media' => '#f0883e', 'alta' => '#f85149', 'critica' => '#da3633'][$row['priorita'] ?? 'alta'] ?? '#f0883e').'; color:#fff;">
+                                    '.strtoupper($row['priorita'] ?? 'ALTA').'
+                                </span><br>
+                                <small style="color:#8b949e; margin-top:4px; display:block;">DETTAGLI ▼</small>
                             </div>
                         </div>
-                      </div>';
+                        <div id="case-'.$row['id'].'" class="case-body">
+                            <div style="margin-bottom:12px;">
+                                <strong style="color:#f0883e;">DATI ESSENZIALI</strong>
+                            </div>';
+                
+                if($row['numero_vittime'] > 0) {
+                    echo '<div style="margin-bottom:8px;"><small style="color:#8b949e;">👥 Soggetti Coinvolti:</small> <strong>'.$row['numero_vittime'].'</strong></div>';
+                }
+                if($row['importo_stimato'] > 0) {
+                    echo '<div style="margin-bottom:8px;"><small style="color:#8b949e;">💰 Importo Stimato:</small> <strong>$'.number_format($row['importo_stimato'],2).'</strong></div>';
+                }
+                if($row['location_crimine']) {
+                    echo '<div style="margin-bottom:8px;"><small style="color:#8b949e;">📍 Luogo:</small> <strong>'.htmlspecialchars($row['location_crimine']).'</strong></div>';
+                }
+                if($row['agenti_coinvolti']) {
+                    echo '<div style="margin-bottom:8px;"><small style="color:#8b949e;">🕵️ Agenti Federali:</small> <strong>'.htmlspecialchars($row['agenti_coinvolti']).'</strong></div>';
+                }
+                
+                echo '<div style="margin:12px 0; padding:8px 0; border-top:1px solid #30363d; border-bottom:1px solid #30363d;">
+                        <strong style="color:#c9d1d9;">RELAZIONE FEDERALE:</strong><br><br>
+                        '.nl2br(htmlspecialchars($row['descrizione'])).'
+                      </div>
+                      <div style="margin-top:12px; font-size:0.9em; border-top:1px solid #30363d; padding-top:8px;">
+                        📅 Data Apertura: '.date('d/m/Y H:i', strtotime($row['data_creazione'] ?? $row['id'])).' | 
+                        Stato: <strong>'.strtoupper($row['stato']).'</strong><br>
+                        Agente Federale: '.strtoupper($row['creato_da']).'
+                      </div>
+                    </div>
+                  </div>';
             }
         } else {
             echo "<div style=\"text-align:center; padding:40px; background:#161b22; border:1px solid #30363d; border-radius:8px; color:#8b949e;\">Nessun fascicolo federale archiviato</div>";

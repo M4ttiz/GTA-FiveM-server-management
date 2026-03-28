@@ -203,6 +203,7 @@ if (isset($_POST['delete_user'])) {
                     <option value="armeria60">armeria60</option>
                     <option value="armeria200">armeria200</option>
                     <option value="marshall">marshall</option>
+                    <option value="fib">fib</option>
                     <option value="iaa">iaa</option>
                     <option value="procura">procura</option>
                     <option value="alto_comando_lspd">alto_comando_lspd</option>
@@ -246,6 +247,7 @@ if (isset($_POST['delete_user'])) {
                                         <option value="armeria60" '.($u['ruolo'] === 'armeria60' ? 'selected' : '').'>armeria60</option>
                                         <option value="armeria200" '.($u['ruolo'] === 'armeria200' ? 'selected' : '').'>armeria200</option>
                                         <option value="marshall" '.($u['ruolo'] === 'marshall' ? 'selected' : '').'>marshall</option>
+                                        <option value="fib" '.($u['ruolo'] === 'fib' ? 'selected' : '').'>fib</option>
                                         <option value="iaa" '.($u['ruolo'] === 'iaa' ? 'selected' : '').'>iaa</option>
                                         <option value="procura" '.($u['ruolo'] === 'procura' ? 'selected' : '').'>procura</option>
                                         <option value="alto_comando_lspd" '.($u['ruolo'] === 'alto_comando_lspd' ? 'selected' : '').'>alto_comando_lspd</option>
